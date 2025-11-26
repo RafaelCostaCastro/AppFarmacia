@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { View, Text, Button } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import { setupDatabase } from '../db';
+import { DataProvider } from '../store/DataContext';
 import MedicamentoScreen from '../MedicamentoScreen';
 import ClienteScreen from '../ClienteScreen';
 
@@ -46,7 +47,7 @@ export default function Home() {
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} onLayout={onLayoutRootView}>
         <Text style={{fontSize: 20, fontWeight: "bold", marginBottom: 20}}>Farmácia</Text>
         <Text>Escolha o Banco de Dados:</Text>
-        <Button title="MongoDB (API)" onPress={() => setDbType('mongodb')} />
+        <Button title="PostgreSQL/Neon (API)" onPress={() => setDbType('mongodb')} />
         <View style={{height: 10}}/>
         <Button title="SQLite (Local)" onPress={() => setDbType('sqlite')} />
       </View>
@@ -66,12 +67,16 @@ export default function Home() {
     );
   }
 
-  if (activeScreen === 'medicamentos') {
-    return <MedicamentoScreen dbType={dbType} voltar={() => setActiveScreen(null)} />;
-  }
-
-  if (activeScreen === 'clientes') {
-    return <ClienteScreen dbType={dbType} voltar={() => setActiveScreen(null)} />;
+  if (activeScreen === 'medicamentos' || activeScreen === 'clientes') {
+    return (
+      <DataProvider dbType={dbType}>
+        {activeScreen === 'medicamentos' ? (
+          <MedicamentoScreen dbType={dbType} voltar={() => setActiveScreen(null)} />
+        ) : (
+          <ClienteScreen dbType={dbType} voltar={() => setActiveScreen(null)} />
+        )}
+      </DataProvider>
+    );
   }
 
   return null;

@@ -1,0 +1,12 @@
+{
+  "dev": {
+    "host": "ep-ancient-dust-ah02ye3d-pooler.c-3.us-east-1.aws.neon.tech",
+    "port": 5432,
+    "database": "neondb",
+    "user": "neondb_owner",
+    "password": "npg_KIqoXtZw4C6m",
+    "ssl": {
+      "rejectUnauthorized": false
+    }
+  }
+}
