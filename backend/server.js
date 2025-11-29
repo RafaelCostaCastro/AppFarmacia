@@ -3,7 +3,15 @@ const { Pool } = require('pg');
 const cors = require('cors');
 
 const app = express();
-app.use(express.json());
+
+// Configurar encoding UTF-8 para suporte a acentuação e caracteres especiais
+app.use((req, res, next) => {
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
+  next();
+});
+
+app.use(express.json({ charset: 'utf-8' }));
+app.use(express.urlencoded({ extended: true, charset: 'utf-8' }));
 app.use(cors());
 
 // Configuração do pool de conexões PostgreSQL (Neon)
@@ -11,7 +19,9 @@ const pool = new Pool({
   connectionString: 'postgresql://neondb_owner:npg_KIqoXtZw4C6m@ep-ancient-dust-ah02ye3d-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require',
   ssl: {
     rejectUnauthorized: false
-  }
+  },
+  // Garantir encoding UTF-8 para suporte a caracteres especiais
+  client_encoding: 'UTF8'
 });
 
 // Teste de conexão

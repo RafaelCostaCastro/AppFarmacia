@@ -2,6 +2,10 @@ import axios from 'axios';
 import { Platform } from 'react-native';
 import Constants from 'expo-constants';
 
+// Configurar axios para UTF-8
+axios.defaults.headers.common['Content-Type'] = 'application/json; charset=utf-8';
+axios.defaults.headers.common['Accept'] = 'application/json; charset=utf-8';
+
 // Determina BASE_URL com várias estratégias (em ordem):
 // 1) variável de ambiente em tempo de execução (REACT_NATIVE_BASE_URL)
 // 2) Expo Constants.manifest?.debuggerHost (dev via Expo)

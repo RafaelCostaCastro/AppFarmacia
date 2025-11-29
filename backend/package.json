@@ -21,6 +21,7 @@
     "pg": "^8.13.1"
   },
   "devDependencies": {
+    "axios": "^1.13.2",
     "node-pg-migrate": "^7.8.1"
   }
 }
